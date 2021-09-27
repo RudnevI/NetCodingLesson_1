@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace NetCodingLesson_1
 {
@@ -20,7 +21,7 @@ namespace NetCodingLesson_1
 
 
 
-            Example_04();
+            Example_05();
         }
 
         public static void Example_01()
@@ -97,12 +98,12 @@ namespace NetCodingLesson_1
 
         public static void Example_05()
         {
-            WebRequest request = WebRequest.Create(@"http://google.com");
+            WebRequest request = WebRequest.Create(@"https://randomuser.me/api/?nat=us&randomapi");
 
 
             request.Timeout = 10000;
             request.Credentials = CredentialCache.DefaultCredentials;
-            request.
+            request.Method = "GET";
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
 
@@ -113,6 +114,13 @@ namespace NetCodingLesson_1
             Console.WriteLine(reader.ReadToEnd());
 
             reader.Close();
+
+            string str = reader.ReadToEnd();
+
+            Results user = JsonConvert.DeserializeObject<Results>(str);
+
+
+
         }
     }
 }
